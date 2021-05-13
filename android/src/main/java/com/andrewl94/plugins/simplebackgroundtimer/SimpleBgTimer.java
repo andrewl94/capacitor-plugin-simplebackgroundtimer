@@ -29,12 +29,16 @@ public class SimpleBgTimer extends Plugin {
         };
         timer.schedule(task, 0 ,1000);
 
-        call.success(true);
+        JSObject retorno = new JSObject();
+        retorno.put("value", true);
+        call.success(retorno);
     }
 
     @PluginMethod
     public void stopInterval(PluginCall call) {
         timer.cancel();
-        call.success(true);
+        JSObject retorno = new JSObject();
+        retorno.put("value", true);
+        call.success(retorno);
     }
 }
