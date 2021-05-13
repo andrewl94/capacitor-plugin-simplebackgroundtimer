@@ -7,12 +7,13 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.time.LocalDateTime;   
 
 @NativePlugin
 public class SimpleBgTimer extends Plugin {
     private Timer timer = new Timer("Timer");
     private long execucoes = 0;
-    
+
     @PluginMethod
     public void startInterval(PluginCall call) {
         String interval = call.getString("interval");
@@ -20,8 +21,8 @@ public class SimpleBgTimer extends Plugin {
      
         TimerTask task = new TimerTask() {
             public void run() {
-                instanteAtual = new Date();
-                notifyListeners("interval", instanteAtual);
+                LocalDateTime now = LocalDateTime.now();  
+                notifyListeners("interval", now);
             }
         };
         timer.schedule(task, 0 ,1000);
