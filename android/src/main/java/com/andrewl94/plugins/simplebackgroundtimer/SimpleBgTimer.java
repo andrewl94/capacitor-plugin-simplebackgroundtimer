@@ -5,16 +5,33 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @NativePlugin
 public class SimpleBgTimer extends Plugin {
+    private Timer timer = new Timer("Timer");
+    private long execucoes = 0;
+    
+    @PluginMethod
+    public void startInterval(PluginCall call) {
+        String interval = call.getString("interval");
+
+     
+        TimerTask task = new TimerTask() {
+            public void run() {
+                instanteAtual = new Date();
+                notifyListeners("interval", instanteAtual);
+            }
+        };
+        timer.schedule(task, 0 ,1000);
+
+        call.success(true);
+    }
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", value);
-        call.success(ret);
+    public void stopInterval(PluginCall call) {
+        timer.cancel();
+        call.success(true);
     }
 }

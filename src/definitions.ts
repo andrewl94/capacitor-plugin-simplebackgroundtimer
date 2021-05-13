@@ -5,5 +5,7 @@ declare module '@capacitor/core' {
 }
 
 export interface SimpleBgTimerPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  startInterval(options: { interval: string }): Promise<{ value: boolean }>;
+
+  stopInterval(options: {}): Promise<{ value: boolean }>;
 }
