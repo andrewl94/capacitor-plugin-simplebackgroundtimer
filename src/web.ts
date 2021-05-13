@@ -9,10 +9,16 @@ export class SimpleBgTimerWeb extends WebPlugin implements SimpleBgTimerPlugin {
     });
   }
 
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  async startInterval(options: { interval: string }): Promise<{ value: boolean }> {
+    console.log(options)
+    return {value:true};
   }
+
+  async stopInterval(options: { }): Promise<{ value: boolean }> {
+    console.log(options)
+    return {value:true};
+  }
+
 }
 
 const SimpleBgTimer = new SimpleBgTimerWeb();
