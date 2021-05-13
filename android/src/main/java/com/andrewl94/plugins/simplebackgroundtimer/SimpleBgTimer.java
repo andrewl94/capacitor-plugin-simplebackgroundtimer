@@ -22,7 +22,9 @@ public class SimpleBgTimer extends Plugin {
         TimerTask task = new TimerTask() {
             public void run() {
                 LocalDateTime now = LocalDateTime.now();  
-                notifyListeners("interval", now);
+                JSObject ret = new JSObject();
+                ret.put("timestamp", now);
+                notifyListeners("interval", ret);
             }
         };
         timer.schedule(task, 0 ,1000);
