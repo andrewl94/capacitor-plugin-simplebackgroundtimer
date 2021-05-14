@@ -14,6 +14,18 @@ public class SimpleBgTimer extends Plugin {
     private Timer timer = new Timer("Timer");
     private long execucoes = 0;
 
+
+    Runtime.getRuntime().addShutdownHook(new Thread() {
+
+        @Override
+        public void run() {
+            JSObject ret = new JSObject();
+                ret.put("appClosed", true);
+                notifyListeners("appClosed", ret);
+        }
+    
+    });
+
     @PluginMethod
     public void startInterval(PluginCall call) {
         String interval = call.getString("interval");
