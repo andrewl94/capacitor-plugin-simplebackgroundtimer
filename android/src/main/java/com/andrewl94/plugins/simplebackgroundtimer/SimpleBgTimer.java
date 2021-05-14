@@ -12,19 +12,9 @@ import java.time.LocalDateTime;
 @NativePlugin
 public class SimpleBgTimer extends Plugin {
     private Timer timer = new Timer("Timer");
-    private long execucoes = 0;
+    private boolean execucoes = false;
 
 
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-
-        @Override
-        public void run() {
-            JSObject ret = new JSObject();
-                ret.put("appClosed", true);
-                notifyListeners("appClosed", ret);
-        }
-    
-    });
 
     @PluginMethod
     public void startInterval(PluginCall call) {
@@ -35,11 +25,15 @@ public class SimpleBgTimer extends Plugin {
             public void run() {
                 LocalDateTime now = LocalDateTime.now();  
                 JSObject ret = new JSObject();
-                ret.put("timestamp", now);
+                ret.put("timestamp", "teste");
                 notifyListeners("interval", ret);
             }
         };
-        timer.schedule(task, 0 ,1000);
+        if(execucoes == false){
+            timer.schedule(task, 0 ,1000);
+            execucoes = true
+        }
+        
 
         JSObject retorno = new JSObject();
         retorno.put("value", true);
@@ -50,6 +44,7 @@ public class SimpleBgTimer extends Plugin {
     public void stopInterval(PluginCall call) {
         timer.cancel();
         JSObject retorno = new JSObject();
+        execucoes = false;
         retorno.put("value", true);
         call.success(retorno);
     }
