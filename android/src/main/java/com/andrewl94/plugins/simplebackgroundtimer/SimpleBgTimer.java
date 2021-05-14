@@ -31,7 +31,7 @@ public class SimpleBgTimer extends Plugin {
         };
         if(execucoes == false){
             timer.schedule(task, 0 ,1000);
-            execucoes = true
+            execucoes = true;
         }
         
 
